@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .ball {
+      width: 40px;
+      height: 40px;
+      border: 1px solid black;
+      border-radius: 20px;
+      font-size: 20px;
+      text-align: center;
+      margin-top: 20px;
+      display: inline-block;
+    }
+
+    /* 공디자인 미리 해놓고 스크립트에서 어펜드에서 클래스가 볼인 공을 추가할 것임 */
+  </style>
+</head>
+
+<body>
+  <div id="result">추첨 결과는?</div>
+  <div id="bonus">보너스: </div>
+
+  <script>
+    const candidate = Array(45).fill().map((v, i) => i + 1);
+    const shuffle = [];
+    while (candidate.length > 0) {
+      const random = Math.floor(Math.random() * candidate.length);//무작위 인덱스뽑기
+      const spliceArray = candidate.splice(random, 1);//뽑은 값은 배열에 들어 있음
+      const value = spliceArray[0]; //배열에 있는 값을 꺼내어 value에 담고
+      shuffle.push(value);//그것을 셔플에 넣어준다
+    }
+    console.log(shuffle)
+    const winBalls = shuffle.slice(0, 6).sort((a, b) => a - b);
+    const bonus = shuffle[6];
+    console.log(winBalls, bonus);
+  </script>
+
+</body>
+
+</html>
