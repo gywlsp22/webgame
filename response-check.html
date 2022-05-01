@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Response-check</title>
+  <style>
+    #screen {
+      width: 300px;
+      height: 300px;
+      text-align: center;
+      line-height: 300px;
+      color: white;
+      font-size: 20px;
+      font-weight: 700;
+      user-select: none;
+    }
+
+    #screen.waiting {
+      background-color: rgb(25, 61, 180);
+    }
+
+    #screen.ready {
+      background-color: red;
+    }
+
+    #screen.now {
+      background-color: rgb(45, 153, 63);
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="screen" class="waiting">클릭해서 시작하세용</div>
+  <div id="result"></div>
+
+  <script>
+    const $screen = document.querySelector("#screen");
+    const $result = document.querySelector("#result");
+
+
+
+    let startTime;
+    let endTime;
+    const records = [];
+    let timeoutId;
+
+    $screen.addEventListener('click', function () {
+      if ($screen.classList.contains('waiting')) { // 파랑
+        $screen.classList.remove('waiting');
+        $screen.classList.add('ready');
+        $screen.textContent = '초록색이 되면 클릭하세요';
+        timeoutId = setTimeout(function () {
+          startTime = new Date();
+          $screen.classList.remove('ready');
+          $screen.classList.add('now');
+          $screen.textContent = '클릭하세요';
+        }, Math.floor(Math.random() * 1000) + 2000);
+      } else if ($screen.classList.contains('ready')) { //빨강
+        clearTimeout(timeoutId);
+        $screen.classList.remove('ready');
+        $screen.classList.add('waitig');
+        $screen.textContent = '너무 성급하시군요';
+      } else if ($screen.classList.contains('now')) {  //초록
+        endTime = new Date();
+        const current = endTime - startTime;
+        records.push(current);
+        const average = records.reduce((a, c) => a + c) / records.length;
+        $result.textContent = `현재: ${current}ms , 평균: ${average}ms`;
+        startTime = null;
+        endTime = null;
+        $screen.classList.remove('now');
+        $screen.classList.add('waiting');
+        $screen.textContent = '클릭해서  시작하세요';
+      }
+
+    });
+
+
+  </script>
+
+
+</body>
+
+</html>
