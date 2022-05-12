@@ -64,6 +64,14 @@
       hp: 100,
       xp: 0,
       att: 10,
+      attack(monster) {
+        monster.hp -= this.att;
+        this.hp -= monster.att;
+      },
+      heal(monster) {
+        this.hp += 20;
+        this.hp -= momster.this;
+      },
     };
 
     let monster = null;
