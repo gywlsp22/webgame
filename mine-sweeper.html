@@ -93,7 +93,24 @@
     return data;
   };
 
-  function drawTable() { };
+  function drawTable() {
+    data = plantMine();
+    data.forEach((row) => {
+      const $tr = document.createElement('tr');
+      row.forEach((cell) => {
+        const $td = document.createElement('td');
+        if (cell === CODE.MINE) {
+
+        }
+        $tr.append($td);
+      });
+      $tbody.append($tr);
+      $tbody.addEventListener('contextmenu', onRightClick);
+      $tbody.addEventListener('click', onLeftClick);
+
+    });
+
+  };
 
   drawTable();
 </script>
